@@ -4,9 +4,9 @@ import com.springboot.blog.exception.BlogAPIException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -22,7 +22,7 @@ public class JwtTokenProvider {
 
     // generate JWT token
     public String generateToken(Authentication authentication){
-        String username = authentication.name();
+        String username = authentication.getName();
 
         Date currentDate = new Date();
 
