@@ -32,12 +32,20 @@ public class CategoryController {
         return ResponseEntity.ok(categoryDto);
     }
 
-    //get All Categories REST API
+    // get All Categories REST API
     @GetMapping
     public ResponseEntity<List<CategoryDto>> getAllCategories(){
 
         List<CategoryDto> categories = categoryService.getAllCategories();
 
         return new  ResponseEntity(categories, HttpStatus.OK);
+    }
+
+    // update Category REST API
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoryDto> updatedCategory(@RequestBody CategoryDto categoryDto,
+                                                       @PathVariable(value = "id") Long categoryId){
+        return ResponseEntity.ok(categoryService.updateCategory(categoryDto, categoryId));
     }
 }
