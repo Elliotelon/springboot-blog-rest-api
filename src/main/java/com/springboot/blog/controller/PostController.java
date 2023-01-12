@@ -13,15 +13,17 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api/posts")
+@RequestMapping("/api/posts")
 public class PostController {
 
     private PostService postService;
 
-    @PreAuthorize(("hasRole('ADMIN')"))
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<PostDto> createPost(@Valid @RequestBody PostDto postDto){
+
         PostDto newPost = postService.createPost(postDto);
+
         return new ResponseEntity<>(newPost, HttpStatus.CREATED);
     }
 
@@ -42,14 +44,14 @@ public class PostController {
         return new ResponseEntity<>(postService.getPostById(id), HttpStatus.OK);
     }
 
-    @PreAuthorize(("hasRole('ADMIN')"))
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<PostDto> updatePost(@Valid @RequestBody PostDto postDto, @PathVariable Long id){
 
         return new ResponseEntity<>(postService.updatePost(postDto, id), HttpStatus.OK);
     }
 
-    @PreAuthorize(("hasRole('ADMIN')"))
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletePost(@PathVariable Long id){
         postService.deletePostById(id);

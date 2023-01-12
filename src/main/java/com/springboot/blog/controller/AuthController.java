@@ -25,6 +25,7 @@ public class AuthController {
         String token = authService.login(loginDto);
 
         JWTAuthResponse jwtAuthResponse = new JWTAuthResponse();
+
         jwtAuthResponse.setAccessToken(token);
 
         return ResponseEntity.ok(jwtAuthResponse);
@@ -32,7 +33,6 @@ public class AuthController {
 
     @PostMapping(value = {"/register", "/signup"})
     public ResponseEntity<String> register(@RequestBody RegisterDto registerDto){
-        System.out.println("fffffff");
         String response = authService.register(registerDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
