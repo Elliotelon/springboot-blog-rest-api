@@ -113,7 +113,7 @@ public class PostController {
 //        return new ResponseEntity<>(postDtoV2, HttpStatus.OK);
 //    }
 
-    /**custom headers*/
+    /**content negotiation*/
     @GetMapping(value = "/api/posts/{id}", produces = "application/vnd.javaguides.v1+json")
     public ResponseEntity<PostDto> getPostByIdV1(@PathVariable Long id){
 
