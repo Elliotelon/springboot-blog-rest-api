@@ -90,13 +90,37 @@ public class PostController {
 //    }
 
     /**custom headers*/
-    @GetMapping(value = "/api/posts/{id}", headers = "X-API-VERSION=1")
+//    @GetMapping(value = "/api/posts/{id}", headers = "X-API-VERSION=1")
+//    public ResponseEntity<PostDto> getPostByIdV1(@PathVariable Long id){
+//
+//        return new ResponseEntity<>(postService.getPostById(id), HttpStatus.OK);
+//    }
+//
+//    @GetMapping(value = "/api/posts/{id}", headers = "X-API-VERSION=2")
+//    public ResponseEntity<PostDtoV2> getPostByIdV2(@PathVariable Long id){
+//
+//        PostDto postDto = postService.getPostById(id);
+//        PostDtoV2 postDtoV2 = new PostDtoV2();
+//        postDtoV2.setId(postDto.getId());
+//        postDtoV2.setTitle(postDto.getTitle());
+//        postDtoV2.setDescription(postDto.getDescription());
+//        postDtoV2.setContent(postDto.getContent());
+//        List<String> tags = new ArrayList<>();
+//        tags.add("Java");
+//        tags.add("Spring boot");
+//        tags.add("AWS");
+//        postDtoV2.setTags(tags);
+//        return new ResponseEntity<>(postDtoV2, HttpStatus.OK);
+//    }
+
+    /**custom headers*/
+    @GetMapping(value = "/api/posts/{id}", produces = "application/vnd.javaguides.v1+json")
     public ResponseEntity<PostDto> getPostByIdV1(@PathVariable Long id){
 
         return new ResponseEntity<>(postService.getPostById(id), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/api/posts/{id}", headers = "X-API-VERSION=2")
+    @GetMapping(value = "/api/posts/{id}", produces = "application/vnd.javaguides.v2+json")
     public ResponseEntity<PostDtoV2> getPostByIdV2(@PathVariable Long id){
 
         PostDto postDto = postService.getPostById(id);
@@ -112,6 +136,7 @@ public class PostController {
         postDtoV2.setTags(tags);
         return new ResponseEntity<>(postDtoV2, HttpStatus.OK);
     }
+
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/api/v1/posts/{id}")
